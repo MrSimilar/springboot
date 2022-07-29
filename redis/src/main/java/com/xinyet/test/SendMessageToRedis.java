@@ -25,7 +25,7 @@ public class SendMessageToRedis {
     public void send() throws InterruptedException {
         for (int i = 0; i < 100; i++) {
             Bean bean = getBean(i);
-            redisUtil.zAdd(REAL_SOLVE, JSON.toJSONString(bean), date2Double(bean.getAt()));
+            redisUtil.zAdd(REAL_SOLVE, JSON.toJSONString(bean), getDoubleByDate(bean.getAt()));
         }
         log.info("send message finished !");
     }
@@ -47,6 +47,10 @@ public class SendMessageToRedis {
         double dd = (double) (date.getTime() - localOffset) / 24 / 3600 / 1000 + 25569.0000000;
         DecimalFormat df = new DecimalFormat("#.0000000000");//先默认保留10位小数
         return Double.parseDouble(df.format(dd));
+    }
+
+    public static double getDoubleByDate(Date date) {
+        return date.getTime();
     }
 
 }
