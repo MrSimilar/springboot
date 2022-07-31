@@ -1,6 +1,7 @@
 package com.xinyet.mybatis.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xinyet.mybatis.entity.OsUser;
 import com.xinyet.mybatis.mapper.OsUserMapper;
@@ -31,6 +32,13 @@ public class OsUserServiceImpl extends ServiceImpl<OsUserMapper, OsUser> impleme
      */
     @Override
     public List<OsUser> getUserList() {
+        /*  以下代码测试分页查询
+        QueryWrapper<OsUser> queryWrapper = new QueryWrapper<>(); // 查询条件
+        //current :查询第几页
+        //size:    每页多少条数据
+        Page<OsUser> page = new Page<>(1,2);
+        Page<OsUser> osUserPage = userMapper.selectPage(page, queryWrapper);
+        List<OsUser> records = osUserPage.getRecords();*/
         return userMapper.selectList(new QueryWrapper<>());
     }
 
