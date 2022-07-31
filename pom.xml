@@ -5,6 +5,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>redis</module>
+        <module>mybatis-plus</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -35,6 +36,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!--fastjson-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.8</version>
         </dependency>
     </dependencies>
 
