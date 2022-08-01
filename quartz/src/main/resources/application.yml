@@ -1,0 +1,61 @@
+server:
+  port: 8902
+  servlet:
+    context-path: /
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/quartz?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 1234567890
+    type: com.alibaba.druid.pool.DruidDataSource
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+  mvc: # Springfox使用的路径匹配是基于AntPathMatche 而Spring Boot 使用的是PathPatternMatcher
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  quartz:
+    job-store-type: jdbc #数据库方式
+    jdbc:
+      initialize-schema: always #不初始化表结构
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceId: AUTO #默认主机名和时间戳生成实例ID,可以是任何字符串，但对于所有调度程序来说，必须是唯一的 对应qrtz_scheduler_state INSTANCE_NAME字段
+            instanceName: instanceName #quartzScheduler
+            jobStore:
+              acquireTriggersWithinLock: true   #在锁定状态下获取触发器
+              class: org.quartz.impl.jdbcjobstore.JobStoreTX #持久化配置
+              driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate #我们仅为数据库制作了特定于数据库的代理
+              useProperties: true #以指示JDBCJobStore将JobDataMaps中的所有值都作为字符串，因此可以作为名称 - 值对存储而不是在BLOB列中以其序列化形式存储更多复杂的对象。从长远来看，这是更安全的，因为您避免了将非String类序列化为BLOB的类版本问题。
+              tablePrefix: QRTZ_  #数据库表前缀
+              misfireThreshold: 6000 #在被认为“失火”之前，调度程序将“容忍”一个Triggers将其下一个启动时间通过的毫秒数。默认值（如果您在配置中未输入此属性）为60000（60秒）。
+              clusterCheckinInterval: 5000 #设置此实例“检入”*与群集的其他实例的频率（以毫秒为单位）。影响检测失败实例的速度。
+              isClustered: true #打开群集功能,集群模式需要在多台服务器上做时间同步或者使用zookeeper去解决
+            threadPool: #连接池
+              class: org.quartz.simpl.SimpleThreadPool
+              threadCount: 20 #最大线程个数
+              threadPriority: 5 #线程优先级
+              threadsInheritContextClassLoaderOfInitializingThread: true
+            scheduler-name: viaScheduler
+    startup-delay: 60s
+    overwrite-existing-jobs: true
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  #mapper-locations: classpath*:mapper/**/*Mapper.xml
+  global-config:
+    # 逻辑删除配置
+    db-config:
+      # 删除前
+      logic-not-delete-value: 1
+      # 删除后
+      logic-delete-value: 0
