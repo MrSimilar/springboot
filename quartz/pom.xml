@@ -59,7 +59,7 @@
             <version>2.3</version>
         </dependency>
 
-        <!--http://localhost:8901/swagger-ui/index.html#/-->
+        <!--http://localhost:8902/swagger-ui/index.html#/-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
@@ -72,7 +72,7 @@
         <!--            <version>1.9.6</version>-->
         <!--        </dependency>-->
 
-        <!--http://localhost:8901/doc.html-->
+        <!--http://localhost:8902/doc.html-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
