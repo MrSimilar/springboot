@@ -1,0 +1,8 @@
+
+hbase:
+  zookeeper:
+    quorum: 192.168.0.252,192.168.0.251,192.168.0.250
+    property:
+      clientPort: 2181
+server:
+  port: 8905
