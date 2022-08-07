@@ -9,6 +9,7 @@
         <module>quartz</module>
         <module>security</module>
         <module>hbase</module>
+        <module>rabbitmq</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
